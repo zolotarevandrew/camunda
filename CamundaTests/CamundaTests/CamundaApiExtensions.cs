@@ -1,8 +1,12 @@
-﻿using Camunda.Api.Client;
+﻿using System.Reflection;
+using Camunda.Api.Client;
 using Camunda.Api.Client.Deployment;
+using Camunda.Api.Client.History;
 using Camunda.Api.Client.ProcessDefinition;
 using Camunda.Api.Client.ProcessInstance;
 using Camunda.Api.Client.Tenant;
+using Newtonsoft.Json;
+using Refit;
 
 namespace CamundaTests;
 
@@ -42,4 +46,30 @@ public static class CamundaApiExtensions
         var deployment = await client.Deployments.Create("", false, false, "", tenantId, resource);
         return deployment;
     }
+
+
+    public static async Task DeliverMessage(this CamundaClient client, ProcessInstanceDeliverMessage message)
+    {
+        string? hostUrl = typeof(CamundaClient).GetField("_hostUrl", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(client) as string;
+        RefitSettings? refitSettings = typeof(CamundaClient).GetField("_refitSettings", BindingFlags.NonPublic | BindingFlags.Instance)?.GetValue(client) as RefitSettings;
+
+        var restService = RestService.For<IProcessInstanceExtensionsClient>(hostUrl, refitSettings);
+        await restService.CorrelateMessage(message);
+    }
+}
+
+public interface IProcessInstanceExtensionsClient
+{
+    [Post("/process-instance/message-async")]
+    Task CorrelateMessage(
+        [Body] ProcessInstanceDeliverMessage body);
+}
+
+public class ProcessInstanceDeliverMessage
+{
+    [JsonProperty("messageName")]
+    public string MessageName { get; set; }
+    
+    [JsonProperty("processInstanceIds")]
+    public string[] InstanceId { get; set; }
 }

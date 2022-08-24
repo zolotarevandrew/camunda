@@ -2,6 +2,7 @@
 using System.Reflection;
 using Camunda.Api.Client;
 using Camunda.Api.Client.Deployment;
+using Camunda.Api.Client.Message;
 using Camunda.Worker;
 using Camunda.Worker.Client;
 using CamundaTests;
@@ -38,7 +39,7 @@ IHost host = Host.CreateDefaultBuilder(args)
 
 CamundaClient camunda = CamundaClient.Create("http://localhost:8080/engine-rest");
 string tenantId = "test";
-var name = "simple_parallel_multiple";
+var name = "simple_event_gateway";
 await camunda.CreateTenant(tenantId);
 
 var deployment = await Deploy(name);
@@ -47,6 +48,15 @@ var process = await camunda.StartProcessByKey(tenantId, name, new Dictionary<str
     {"task", VariableValue.FromObject("test")}
 });
 Console.WriteLine(process.Id);
+
+await camunda.DeliverMessage(new ProcessInstanceDeliverMessage
+{
+    MessageName = "order_rdy",
+    InstanceId = new string[]
+    {
+        process.Id
+    }
+});
 
 async Task<DeploymentInfo?> Deploy(string fileName)
 {

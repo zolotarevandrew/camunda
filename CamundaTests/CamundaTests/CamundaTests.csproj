@@ -30,6 +30,9 @@
       <None Update="bpmn\simple_parallel_multiple.bpmn">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="bpmn\simple_event_gateway.bpmn">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
