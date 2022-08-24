@@ -14,7 +14,16 @@ public class ParallelGetDataTaskHandler : IExternalTaskHandler
         {
             Variables = new Dictionary<string, Variable>
             {
-                ["task1Collection"] = Variable.String(data)
+                ["task1collection"] = new CollectionVariable(new List<string>
+                {
+                    "1",
+                    "2"
+                }),
+                ["task2collection"] = new CollectionVariable(new List<string>
+                {
+                    "1",
+                    "2"
+                })
             }
         };
     }

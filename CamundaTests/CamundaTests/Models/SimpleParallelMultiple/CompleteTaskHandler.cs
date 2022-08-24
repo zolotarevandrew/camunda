@@ -7,7 +7,7 @@ public class ParallelCompleteTaskHandler : IExternalTaskHandler
 {
     public async Task<IExecutionResult> HandleAsync(ExternalTask externalTask, CancellationToken cancellationToken)
     {
-        await Task.Delay(5000, cancellationToken);
+        await Task.Delay(1000, cancellationToken);
         var variables = externalTask.Variables.Keys;
         return new CompleteResult
         {
