@@ -39,13 +39,14 @@ IHost host = Host.CreateDefaultBuilder(args)
 
 CamundaClient camunda = CamundaClient.Create("http://localhost:8080/engine-rest");
 string tenantId = "test";
-var name = "simple_event_gateway";
+
 await camunda.CreateTenant(tenantId);
 
-var deployment = await Deploy(name);
+var name = "simple_call_activity";
+//var deployment = await Deploy(name);
 var process = await camunda.StartProcessByKey(tenantId, name, new Dictionary<string, VariableValue>
 {
-    {"task", VariableValue.FromObject("test")}
+    {"order_name", VariableValue.FromObject("order_name")}
 });
 Console.WriteLine(process.Id);
 
