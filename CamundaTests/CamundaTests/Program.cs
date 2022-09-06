@@ -17,6 +17,7 @@ IHost host = Host.CreateDefaultBuilder(args)
         {
             client.BaseAddress = new Uri("http://localhost:8080/engine-rest");
         });
+        services.AddScoped<CamundaClient>(s => CamundaClient.Create("http://localhost:8080/engine-rest"));
         var worker = services.AddCamundaWorker("sampleWorker");
         var types = AppDomain.CurrentDomain.GetAssemblies()
             .SelectMany(a => a.GetTypes());
@@ -37,26 +38,13 @@ IHost host = Host.CreateDefaultBuilder(args)
     })
     .Build();
 
-CamundaClient camunda = CamundaClient.Create("http://localhost:8080/engine-rest");
+var camunda = host.Services.GetRequiredService<CamundaClient>();
 string tenantId = "test";
-
 await camunda.CreateTenant(tenantId);
-
 var name = "complex_pizza_order";
-//var deployment = await Deploy(name);
 var process = await camunda.StartProcessByKey(tenantId, name, new Dictionary<string, VariableValue>
 {
     {"order_name", VariableValue.FromObject("order_name")}
-});
-Console.WriteLine(process.Id);
-
-await camunda.DeliverMessage(new ProcessInstanceDeliverMessage
-{
-    MessageName = "order_rdy",
-    InstanceId = new string[]
-    {
-        process.Id
-    }
 });
 
 async Task<DeploymentInfo?> Deploy(string fileName)
