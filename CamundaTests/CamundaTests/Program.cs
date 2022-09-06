@@ -42,7 +42,7 @@ string tenantId = "test";
 
 await camunda.CreateTenant(tenantId);
 
-var name = "simple_call_activity";
+var name = "complex_pizza_order";
 //var deployment = await Deploy(name);
 var process = await camunda.StartProcessByKey(tenantId, name, new Dictionary<string, VariableValue>
 {

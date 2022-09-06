@@ -14,10 +14,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="bpmn" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Update="bpmn\simple_task.bpmn">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
@@ -37,6 +33,9 @@
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
       <None Update="bpmn\simple_call_activity.bpmn">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
+      <None Update="bpmn\complex_pizza_order.bpmn">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>
