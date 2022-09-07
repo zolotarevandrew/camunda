@@ -8,7 +8,7 @@ public class BakePizzaHandler : IExternalTaskHandler
 {
     public async Task<IExecutionResult> HandleAsync(ExternalTask externalTask, CancellationToken cancellationToken)
     {
-        await Task.Delay(500, cancellationToken);
+        await Task.Delay(25000, cancellationToken);
         
         return new CompleteResult
         {
