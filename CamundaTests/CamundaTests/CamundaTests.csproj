@@ -38,6 +38,9 @@
       <None Update="bpmn\complex_pizza_order.bpmn">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="bpmn\events_new_process.bpmn">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
