@@ -41,8 +41,8 @@ IHost host = Host.CreateDefaultBuilder(args)
 var camunda = host.Services.GetRequiredService<CamundaClient>();
 string tenantId = "test";
 await camunda.CreateTenant(tenantId);
-var name = "event_workflow";
-var process = await camunda.StartProcessByKey(tenantId, "start_order_process", new Dictionary<string, VariableValue>
+var name = "booking_flow";
+var process = await camunda.StartProcessByKey(tenantId, name, new Dictionary<string, VariableValue>
 {
     
 });

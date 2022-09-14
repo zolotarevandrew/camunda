@@ -1,14 +1,14 @@
 ﻿using Camunda.Worker;
 
-namespace CamundaTests.Models.EventMessages;
+namespace CamundaTests.Models.BookingFlow;
 
 
-[HandlerTopics("e_pack_order", LockDuration = 10_000)]
-public class PackOrderHandler : IExternalTaskHandler
+[HandlerTopics("ee_flight_booking", LockDuration = 10_000)]
+public class FlightBookHandler : IExternalTaskHandler
 {
     public async Task<IExecutionResult> HandleAsync(ExternalTask externalTask, CancellationToken cancellationToken)
     {
-        await Task.Delay(10000, cancellationToken);
+        await Task.Delay(1000, cancellationToken);
         
         return new CompleteResult
         {

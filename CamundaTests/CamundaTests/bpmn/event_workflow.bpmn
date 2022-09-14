@@ -45,7 +45,7 @@
     <bpmn:intermediateThrowEvent id="Event_0i2zsl2" name="order_payed">
       <bpmn:incoming>Flow_16r726b</bpmn:incoming>
       <bpmn:outgoing>Flow_103gm97</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1w9ap35" messageRef="Message_00qo0i4" camunda:type="external" camunda:topic="t_payed_order" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1w9ap35" messageRef="Message_00qo0i4" />
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_16r726b" sourceRef="Activity_09sezai" targetRef="Event_0i2zsl2" />
     <bpmn:sequenceFlow id="Flow_103gm97" sourceRef="Event_0i2zsl2" targetRef="Activity_1bmoe1e" />
