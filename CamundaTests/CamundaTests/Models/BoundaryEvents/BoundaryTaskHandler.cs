@@ -1,31 +1,30 @@
 ﻿using Camunda.Api.Client;
 using Camunda.Worker;
 
-namespace CamundaTests.Models.BookingFlow;
+namespace CamundaTests.Models.BoundaryEvents;
 
 
-[HandlerTopics("ee_cancel_booking", LockDuration = 10_000)]
-public class CancelBookingHandler : IExternalTaskHandler
+[HandlerTopics("e_attached", LockDuration = 10_000)]
+public class BoundaryTaskHandler : IExternalTaskHandler
 {
     private readonly CamundaClient _client;
-
-    public CancelBookingHandler(CamundaClient client)
+    public BoundaryTaskHandler(CamundaClient client)
     {
         _client = client;
     }
     
     public async Task<IExecutionResult> HandleAsync(ExternalTask externalTask, CancellationToken cancellationToken)
     {
-        await Task.Delay(1000, cancellationToken);
         await _client.DeliverMessage(new ProcessInstanceDeliverMessage
         {
             InstanceId = new string[]
             {
                 externalTask.ProcessInstanceId
             },
-            MessageName = "employee_checked"
-            //"employee_checked"
+            MessageName = "cancelled"
         });
+        
+        await Task.Delay(10000, cancellationToken);
         
         return new CompleteResult
         {
