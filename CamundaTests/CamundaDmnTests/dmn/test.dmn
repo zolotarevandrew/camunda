@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1ei4dyy" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <decision id="Decision_1751nx4" name="TestDecision">
+    <informationRequirement id="InformationRequirement_0uzc2xs">
+      <requiredInput href="#InputData_16uhbqg" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0qyrdns">
+      <requiredInput href="#InputData_0k08uea" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0s4mu90">
+      <input id="Input_1" label="str">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>str</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1remeeb" label="tes">
+        <inputExpression id="LiteralExpression_1d65jz3" typeRef="boolean">
+          <text>tes</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="output" name="output" typeRef="string" />
+      <rule id="DecisionRule_13nc5oi">
+        <inputEntry id="UnaryTests_00q29li">
+          <text>"test"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ph9m51">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_084y44o">
+          <text>"ok"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07h8me5">
+        <inputEntry id="UnaryTests_1wv0wa9">
+          <text>"test"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1m6itr8">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o8rubd">
+          <text>"notok"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_16uhbqg" name="str" />
+  <inputData id="InputData_0k08uea" name="tes" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_1751nx4">
+        <dc:Bounds height="80" width="180" x="190" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0g8iufa" dmnElementRef="InputData_16uhbqg">
+        <dc:Bounds height="45" width="125" x="157" y="218" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1ho9sr0" dmnElementRef="InputData_0k08uea">
+        <dc:Bounds height="45" width="125" x="297" y="219" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1ize1ry" dmnElementRef="InformationRequirement_0uzc2xs">
+        <di:waypoint x="220" y="218" />
+        <di:waypoint x="250" y="180" />
+        <di:waypoint x="250" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1yw8gid" dmnElementRef="InformationRequirement_0qyrdns">
+        <di:waypoint x="360" y="219" />
+        <di:waypoint x="310" y="180" />
+        <di:waypoint x="310" y="160" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
