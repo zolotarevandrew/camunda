@@ -16,9 +16,8 @@ public class SimpleDecisionTest
     }
     
     [Fact]
-    public async Task Test()
+    public void Test()
     {
-        var watch = Stopwatch.StartNew();
         
         Context.WithInputParameter("str", "test");
         Context.WithInputParameter("tes", false);
@@ -26,7 +25,5 @@ public class SimpleDecisionTest
 
         var a = result.First.Variables[0].Value as string;
         Assert.Equal("notok", a);
-        watch.Stop();
-        var b = watch.Elapsed;
     }
 }
