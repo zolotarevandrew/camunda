@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0dgsabz" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.2.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.0.0">
+  <decision id="StepDecision" name="StepDecision">
+    <informationRequirement id="InformationRequirement_03z7u0j">
+      <requiredInput href="#InputData_17bbqus" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1m8fdb2">
+      <input id="Input_1" label="step">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>step</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="next" name="next" typeRef="string" />
+      <rule id="DecisionRule_1yctx8f">
+        <inputEntry id="UnaryTests_1f9im7g">
+          <text>"RegNumber"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hsm9bb">
+          <text>"RegNumberNext"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_17bbqus" name="step" />
+  <inputData id="InputData_0i8380c" name="metadata" />
+  <decision id="RegNumberNext" name="RegNumberNext">
+    <informationRequirement id="InformationRequirement_0kssq4r">
+      <requiredInput href="#InputData_0i8380c" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1wdfplk" hitPolicy="FIRST">
+      <input id="InputClause_05n1grg" label="ownerDenied">
+        <inputExpression id="LiteralExpression_1y12pu9" typeRef="boolean">
+          <text>metadata.ownerDenied</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_049d55n" label="uploadRegDocsMissing">
+        <inputExpression id="LiteralExpression_1kqjblz" typeRef="boolean">
+          <text>metadata.uploadRegDocsMissing</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0bgfonq" label="bizDetailsMissing">
+        <inputExpression id="LiteralExpression_16goe5g" typeRef="boolean">
+          <text>metadata.bizDetailsMissing</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_08h5hek" label="bizAddressMissing">
+        <inputExpression id="LiteralExpression_1nsxjdu" typeRef="boolean">
+          <text>metadata.bizAddressMissing</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_11e79ru" label="next" name="next" typeRef="string" biodi:width="356" />
+      <rule id="DecisionRule_0iuz9pa">
+        <description>When ownerDenied</description>
+        <inputEntry id="UnaryTests_1tqz86t">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gbqsae">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1beqm8w">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vvyg29">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p4rxaq">
+          <text>{"steps": ["OwnerDenied"]}</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0alxwda">
+        <description>When data is not missing</description>
+        <inputEntry id="UnaryTests_1jq9f1r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l7s4q0">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1owih4n">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jd592k">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zw8y19">
+          <text>{"steps": ["SelectYouSelf"]}</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0p5llzh">
+        <description>When ONLY Business Address is missing</description>
+        <inputEntry id="UnaryTests_1ikxm52">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1evdt23">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ekbz4k">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1w34sk1">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02e1yeu">
+          <text>{"steps": ["BizAddress", "SelectYouSelf"]}</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06cbulb">
+        <description>When ONLY BizDetails is missing</description>
+        <inputEntry id="UnaryTests_0v1jfxl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11y4xwt">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dq82k2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16w3gwx">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rinhu0">
+          <text>"BizDetails";"SelectYourselfNext"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w17vg8">
+        <description>When ONLY RedDocs is missing</description>
+        <inputEntry id="UnaryTests_0y9nh1m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0919fkb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mz8o6s">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19aa7bx">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cufhtr">
+          <text>"UploadRegDocsNext"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1xuqs3h">
+        <inputEntry id="UnaryTests_0rlshn6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jtrxlr">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13r4wep">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iy2k6a">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12lq5t9">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zfkkj1">
+        <inputEntry id="UnaryTests_0jwfkui">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07uykxn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vfahkn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x7iiyh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1l44arv">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="StepDecision">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0pxcnmx" dmnElementRef="InputData_17bbqus">
+        <dc:Bounds height="45" width="125" x="187" y="317" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0s8sn0t" dmnElementRef="InformationRequirement_03z7u0j">
+        <di:waypoint x="250" y="317" />
+        <di:waypoint x="250" y="180" />
+        <di:waypoint x="250" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_189nldc" dmnElementRef="InputData_0i8380c">
+        <dc:Bounds height="45" width="125" x="477" y="308" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1txnfh8" dmnElementRef="InformationRequirement_0kssq4r">
+        <di:waypoint x="540" y="308" />
+        <di:waypoint x="540" y="180" />
+        <di:waypoint x="540" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0rcn6r3" dmnElementRef="RegNumberNext">
+        <dc:Bounds height="80" width="180" x="450" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

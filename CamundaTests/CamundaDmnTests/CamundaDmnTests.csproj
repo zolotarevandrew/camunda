@@ -26,6 +26,9 @@
       <None Update="dmn\test.dmn">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
+      <None Update="dmn\stepv1.dmn">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 
 </Project>
